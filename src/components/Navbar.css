@@ -1,0 +1,151 @@
+/* --- Style Dasar Navbar (CLASSIC GLASS EFFECT) --- */
+.navbar {
+  display: flex;
+  
+  /* PERUBAHAN UTAMA: Item dirapatkan ke kiri */
+  justify-content: flex-start; 
+  /* Memberi jarak yang baik antara Logo (item 1) dan Nav Links (item 2) */
+  gap: 4rem; 
+  
+  align-items: center;
+  
+  /* EFEK GLASS: Latar belakang putih transparan */
+  background-color: rgba(255, 255, 255, 0.7); /* Putih dengan transparansi 70% */
+  backdrop-filter: blur(10px); /* Kunci untuk efek buram */
+  
+  color: #222; /* Teks gelap agar kontras dengan latar belakang terang */
+  padding: 1rem 10%;
+  
+  /* Bayangan lembut untuk mengangkat navbar dari halaman */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  transition: padding 0.3s ease;
+}
+
+/* --- Style Logo --- */
+.logo {
+  font-size: 1.6rem;
+  font-weight: bold;
+  text-decoration: none;
+  color: #222; /* Teks gelap */
+  transition: transform 0.3s ease;
+}
+
+.logo:hover {
+  transform: scale(1.03);
+}
+
+.logo .dot {
+  color: #007bff; /* Aksen biru */
+}
+
+/* --- Style Link Navigasi (Desktop) --- */
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 2.5rem;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li a {
+  text-decoration: none;
+  color: #222; /* Teks gelap */
+  font-weight: 500;
+  font-size: 1.05rem;
+  position: relative;
+  padding-bottom: 6px;
+  transition: color 0.3s ease;
+}
+
+/* Garis bawah animasi */
+.nav-links li a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 2px;
+  background-color: #007bff; /* Aksen biru */
+  transition: width 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+/* Saat di-hover ATAU aktif, lebarkan garis & ubah warna teks */
+.nav-links li a:hover::after,
+.nav-links li.active a::after {
+  width: 100%;
+}
+
+.nav-links li a:hover,
+.nav-links li.active a {
+  color: #007bff; /* Warna berubah jadi biru */
+}
+
+
+/* --- Hamburger Menu Toggle --- */
+.menu-toggle {
+  display: none;
+  font-size: 1.8rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #222; /* Ikon gelap */
+  z-index: 101;
+}
+
+
+/* --- Mode Responsif (Mobile) --- */
+@media (max-width: 768px) {
+  
+  /* Di mobile, kembalikan ke space-between agar logo dan hamburger tetap terpisah */
+  .navbar {
+    padding: 1rem 5%;
+    justify-content: space-between; /* Dikembalikan ke default di mobile */
+    gap: 0;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    
+    background-color: white; /* Latar belakang solid putih saat di mobile */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    border-top: 1px solid #f0f0f0; 
+    
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.5rem 0;
+    
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease-out, 
+                transform 0.3s ease-out, 
+                visibility 0.3s;
+  }
+
+  .nav-links.open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  
+  .nav-links li a {
+    font-size: 1.2rem;
+  }
+  
+  .nav-links li a::after {
+    height: 3px;
+  }
+}

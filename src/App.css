@@ -1,0 +1,10 @@
+/* Contoh style yang bisa merusak */
+nav {
+  background-color: blue !important; /* style !important akan menang */
+}
+
+ul {
+  /* style global ini bisa merusak flexbox di navbar */
+  display: block; 
+  padding: 0;
+}
