@@ -917,6 +917,12 @@ h1 span {
     font-size: 0.95rem;
     line-height: 1.15;
   }
+    .cert-icon {
+    width: 55px;
+    height: 55px;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+  }
 }
 
 /* --- Contact Section --- */
