@@ -19,99 +19,66 @@ function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Debug: log projects data saat komponen dimuat
-  useEffect(() => {
-    console.log("Projects data:", projects);
-    projects.forEach((project, index) => {
-      console.log(`Project ${index + 1}:`, project.title, "Image:", project.image);
-    });
-  }, []);
+useEffect(() => {
+  const profileElement = profileRef.current;
+  if (!profileElement) {
+    console.log("Profile element not found");
+    return;
+  }
 
-  // Fungsi untuk membuka modal dengan gambar
-  const openImageModal = (imageUrl, projectTitle) => {
-    console.log("Opening modal with:", { imageUrl, projectTitle });
-    setSelectedImage({ url: imageUrl, title: projectTitle });
-    setIsModalOpen(true);
-    document.body.style.overflow = 'hidden';
-    document.body.classList.add('modal-open');
+  console.log("Setting up 3D effect for profile image");
+
+  const MAX_ROTATION = 8;
+  const ADJUST_FACTOR = 0.5;
+
+  const handleMouseMove = (e) => {
+    const rect = profileElement.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const xCenter = x - rect.width / 2;
+    const yCenter = y - rect.height / 2;
+    const rotateY = (xCenter / (rect.width / 2)) * MAX_ROTATION * ADJUST_FACTOR;
+    const rotateX = (yCenter / (rect.height / 2)) * MAX_ROTATION * ADJUST_FACTOR * -1;
+
+    console.log(`Mouse move - rotateX: ${rotateX}, rotateY: ${rotateY}`);
+
+    const imageElement = profileElement.querySelector("img");
+    if (imageElement) {
+      imageElement.style.setProperty("--rotateX", `${rotateX}deg`);
+      imageElement.style.setProperty("--rotateY", `${rotateY}deg`);
+    } else {
+      console.log("Image element not found inside profile element");
+    }
   };
 
-  // Fungsi untuk menutup modal
-  const closeImageModal = () => {
-    setIsModalOpen(false);
-    setSelectedImage(null);
-    document.body.style.overflow = 'unset';
-    document.body.classList.remove('modal-open');
+  const handleMouseLeave = () => {
+    console.log("Mouse leave");
+    const imageElement = profileElement.querySelector("img");
+    if (imageElement) {
+      imageElement.style.transition = "transform 0.5s ease-out, box-shadow 0.3s ease";
+      imageElement.style.setProperty("--rotateX", "0deg");
+      imageElement.style.setProperty("--rotateY", "0deg");
+    }
   };
 
-  // Fungsi untuk menutup modal dengan ESC key
-  useEffect(() => {
-    const handleEscKey = (e) => {
-      if (e.keyCode === 27 && isModalOpen) {
-        closeImageModal();
-      }
-    };
+  const handleMouseEnter = () => {
+    console.log("Mouse enter");
+    const imageElement = profileElement.querySelector("img");
+    if (imageElement) {
+      imageElement.style.transition = "box-shadow 0.3s ease, transform 0.05s linear";
+    }
+  };
 
-    document.addEventListener('keydown', handleEscKey);
-    
-    return () => {
-      document.removeEventListener('keydown', handleEscKey);
-    };
-  }, [isModalOpen]);
+  profileElement.addEventListener("mousemove", handleMouseMove);
+  profileElement.addEventListener("mouseleave", handleMouseLeave);
+  profileElement.addEventListener("mouseenter", handleMouseEnter);
 
-  // Effect untuk profile image
-  useEffect(() => {
-    const profileElement = profileRef.current;
-    if (!profileElement) return;
-
-    const MAX_ROTATION = 8;
-    const ADJUST_FACTOR = 0.5;
-
-    const handleMouseMove = (e) => {
-      const rect = profileElement.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      const xCenter = x - rect.width / 2;
-      const yCenter = y - rect.height / 2;
-      const rotateY =
-        (xCenter / (rect.width / 2)) * MAX_ROTATION * ADJUST_FACTOR;
-      const rotateX =
-        (yCenter / (rect.height / 2)) * MAX_ROTATION * ADJUST_FACTOR * -1;
-
-      const imageElement = profileElement.querySelector("img");
-      if (imageElement) {
-        imageElement.style.setProperty("--rotateX", `${rotateX}deg`);
-        imageElement.style.setProperty("--rotateY", `${rotateY}deg`);
-      }
-    };
-
-    const handleMouseLeave = () => {
-      const imageElement = profileElement.querySelector("img");
-      if (imageElement) {
-        imageElement.style.transition =
-          "transform 0.5s ease-out, box-shadow 0.3s ease";
-        imageElement.style.setProperty("--rotateX", "0deg");
-        imageElement.style.setProperty("--rotateY", "0deg");
-      }
-    };
-
-    const handleMouseEnter = () => {
-      const imageElement = profileElement.querySelector("img");
-      if (imageElement) {
-        imageElement.style.transition =
-          "box-shadow 0.3s ease, transform 0.05s linear";
-      }
-    };
-
-    profileElement.addEventListener("mousemove", handleMouseMove);
-    profileElement.addEventListener("mouseleave", handleMouseLeave);
-    profileElement.addEventListener("mouseenter", handleMouseEnter);
-
-    return () => {
-      profileElement.removeEventListener("mousemove", handleMouseMove);
-      profileElement.removeEventListener("mouseleave", handleMouseLeave);
-      profileElement.removeEventListener("mouseenter", handleMouseEnter);
-    };
-  }, []);
+  return () => {
+    profileElement.removeEventListener("mousemove", handleMouseMove);
+    profileElement.removeEventListener("mouseleave", handleMouseLeave);
+    profileElement.removeEventListener("mouseenter", handleMouseEnter);
+  };
+}, []);
 
   // Tampilkan semua project atau hanya 3 project pertama
   const displayedProjects = showAllProjects ? projects : projects.slice(0, 3);
