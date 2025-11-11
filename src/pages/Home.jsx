@@ -1,7 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import projects from "../data/project";
 import "./Home.css";
-import profilePic from "../assets/img/Profile.png";
 import {
   FaGithub,
   FaLinkedin,
@@ -169,7 +168,7 @@ function Home() {
         </div>
 
         <div className="profile-img" ref={profileRef}>
-          <img src={profilePic} alt="Profile" />
+          <img src="/Portfolio/img/Profile.png" alt="Profile" />
         </div>
       </section>
 
