@@ -1,243 +1,15 @@
-/* === IMAGE MODAL STYLES === */
-.image-modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.95);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-  animation: fadeIn 0.3s ease-out;
-}
-
-.modal-content {
-  position: relative;
-  max-width: 90%;
-  max-height: 90%;
-  background: transparent;
-  border-radius: 12px;
-  overflow: hidden;
-  animation: zoomIn 0.3s ease-out;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.modal-content img {
-  width: auto;
-  height: auto;
-  max-width: 100%;
-  max-height: 80vh;
-  object-fit: contain;
-  border-radius: 8px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-  background: #fff; /* Background putih untuk gambar dengan transparansi */
-}
-
-.modal-close {
-  position: absolute;
-  top: -50px;
-  right: 0;
-  background: rgba(255, 255, 255, 0.9);
-  border: none;
-  color: #333;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  font-size: 1.2rem;
-  transition: all 0.3s ease;
-  z-index: 10001;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-}
-
-.modal-close:hover {
-  background: #ff4444;
-  color: white;
-  transform: scale(1.1);
-}
-
-.modal-title {
-  margin-top: 20px;
-  color: white;
-  font-size: 1.5rem;
-  font-weight: 600;
-  text-align: center;
-  background: rgba(0, 0, 0, 0.7);
-  padding: 10px 20px;
-  border-radius: 8px;
-  max-width: 80%;
-}
-
-/* Image overlay effect pada project image - glass effect */
-.project-image {
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
-}
-
-.clickable-image {
-  cursor: pointer;
-}
-
-.image-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.25); /* lebih gelap agar terlihat */
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  transition: all 0.3s ease;
-  color: white;
-  font-weight: 600;
-  text-align: center;
-  padding: 1rem;
-  font-size: 1.1rem;
-  border-radius: inherit;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-  border: 1px solid rgba(255,255,255,0.2); /* outline halus */
-}
-
-
-.project-image:hover .image-overlay {
-  opacity: 1;
-}
-
-/* Animasi untuk modal */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes zoomIn {
-  from {
-    opacity: 0;
-    transform: scale(0.7);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-/* Responsive design untuk modal */
-@media (max-width: 768px) {
-  .modal-content {
-    max-width: 95%;
-    max-height: 95%;
-  }
-  
-  .modal-close {
-    top: -45px;
-    right: -10px;
-    width: 35px;
-    height: 35px;
-    font-size: 1rem;
-  }
-  
-  .modal-title {
-    font-size: 1.2rem;
-    margin-top: 15px;
-    max-width: 90%;
-  }
-  
-  .image-overlay span {
-    font-size: 1rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .modal-content {
-    max-width: 98%;
-  }
-  
-  .modal-close {
-    top: -40px;
-    right: -5px;
-    width: 32px;
-    height: 32px;
-  }
-  
-  .modal-title {
-    font-size: 1.1rem;
-    margin-top: 12px;
-    padding: 8px 16px;
-  }
-  
-  .image-overlay span {
-    font-size: 0.9rem;
-    padding: 0.8rem;
-  }
-  
-  .modal-content img {
-    max-height: 70vh;
-  }
-}
-
-/* Pastikan body tidak scroll ketika modal terbuka */
-body.modal-open {
-  overflow: hidden;
-}
-/* --- Portfolio Container --- */
-.portfolio-container {
-  width: 100%;
-  overflow-x: hidden;
-}
-h1 span {
-  color: #ff6600; /* misal */
-  display: block;
-  font-size: 2rem;
-}
-
-/* Divider style */
-.divider {
-  border: none;
-  height: 2.5px;
-  width: 100%;
-  background: linear-gradient(90deg, transparent, #007bff, transparent);
-  position: relative;
-  overflow: hidden;
-  margin: 0;
-  z-index: 5;
-}
-
-.divider::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -30%;
-  width: 30%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
-  animation: shine 2.5s infinite;
-}
-
-@keyframes shine {
-  0% { left: -30%; }
-  100% { left: 100%; }
-}
-
-
-
-
-
 /* --- Container untuk section --- */
+h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+
+  /* Samakan gradient dengan h1 */
+  background: linear-gradient(90deg, #1f2937, #007bff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -560,6 +332,242 @@ h1 span {
 .btn.small {
   padding: 0.6rem 1.2rem;
   font-size: 0.9rem;
+}
+
+/* === IMAGE MODAL STYLES === */
+.image-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.95);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.modal-content {
+  position: relative;
+  max-width: 90%;
+  max-height: 90%;
+  background: transparent;
+  border-radius: 12px;
+  overflow: hidden;
+  animation: zoomIn 0.3s ease-out;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.modal-content img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 80vh;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  background: #fff; /* Background putih untuk gambar dengan transparansi */
+}
+
+.modal-close {
+  position: absolute;
+  top: -50px;
+  right: 0;
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  color: #333;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+  z-index: 10001;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.modal-close:hover {
+  background: #ff4444;
+  color: white;
+  transform: scale(1.1);
+}
+
+.modal-title {
+  margin-top: 20px;
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 10px 20px;
+  border-radius: 8px;
+  max-width: 80%;
+}
+
+/* Image overlay effect pada project image - glass effect */
+.project-image {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.clickable-image {
+  cursor: pointer;
+}
+
+.image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.25); /* lebih gelap agar terlihat */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: all 0.3s ease;
+  color: white;
+  font-weight: 600;
+  text-align: center;
+  padding: 1rem;
+  font-size: 1.1rem;
+  border-radius: inherit;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  border: 1px solid rgba(255,255,255,0.2); /* outline halus */
+}
+
+
+.project-image:hover .image-overlay {
+  opacity: 1;
+}
+
+/* Animasi untuk modal */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Responsive design untuk modal */
+@media (max-width: 768px) {
+  .modal-content {
+    max-width: 95%;
+    max-height: 95%;
+  }
+  
+  .modal-close {
+    top: -45px;
+    right: -10px;
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
+  }
+  
+  .modal-title {
+    font-size: 1.2rem;
+    margin-top: 15px;
+    max-width: 90%;
+  }
+  
+  .image-overlay span {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-content {
+    max-width: 98%;
+  }
+  
+  .modal-close {
+    top: -40px;
+    right: -5px;
+    width: 32px;
+    height: 32px;
+  }
+  
+  .modal-title {
+    font-size: 1.1rem;
+    margin-top: 12px;
+    padding: 8px 16px;
+  }
+  
+  .image-overlay span {
+    font-size: 0.9rem;
+    padding: 0.8rem;
+  }
+  
+  .modal-content img {
+    max-height: 70vh;
+  }
+}
+
+/* Pastikan body tidak scroll ketika modal terbuka */
+body.modal-open {
+  overflow: hidden;
+}
+/* --- Portfolio Container --- */
+.portfolio-container {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+h1 span {
+  color: #ff6600; /* misal */
+  display: block;
+  font-size: 2rem;
+}
+
+/* Divider style */
+.divider {
+  border: none;
+  height: 2.5px;
+  width: 100%;
+  background: linear-gradient(90deg, transparent, #007bff, transparent);
+  position: relative;
+  overflow: hidden;
+  margin: 0;
+  z-index: 5;
+}
+
+.divider::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -30%;
+  width: 30%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+  animation: shine 2.5s infinite;
+}
+
+@keyframes shine {
+  0% { left: -30%; }
+  100% { left: 100%; }
 }
 
 /* Show More Button */
@@ -927,15 +935,6 @@ h1 span {
   text-decoration: none;
   color: inherit; /* biar warna teks nggak berubah jadi biru */
   gap: 1rem; /* jarak antara ikon dan teks */
-}
-
-.contact-header h2 {
-  font-size: 2.5rem;
-  margin-bottom: 1.5rem;
-  color: #1f2937;
-  background: linear-gradient(135deg, #007bff, #0056b3);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
 }
 
 .contact-intro {

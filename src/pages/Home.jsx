@@ -28,21 +28,21 @@ function Home() {
   }, []);
 
   // Fungsi untuk membuka modal dengan gambar
-const openImageModal = (imageUrl, projectTitle) => {
-  console.log("Opening modal with:", { imageUrl, projectTitle });
-  setSelectedImage({ url: imageUrl, title: projectTitle });
-  setIsModalOpen(true);
-  document.body.style.overflow = 'hidden';
-  document.body.classList.add('modal-open'); // Tambahkan ini
-};
+  const openImageModal = (imageUrl, projectTitle) => {
+    console.log("Opening modal with:", { imageUrl, projectTitle });
+    setSelectedImage({ url: imageUrl, title: projectTitle });
+    setIsModalOpen(true);
+    document.body.style.overflow = 'hidden';
+    document.body.classList.add('modal-open');
+  };
 
   // Fungsi untuk menutup modal
-const closeImageModal = () => {
-  setIsModalOpen(false);
-  setSelectedImage(null);
-  document.body.style.overflow = 'unset';
-  document.body.classList.remove('modal-open'); // Tambahkan ini
-};
+  const closeImageModal = () => {
+    setIsModalOpen(false);
+    setSelectedImage(null);
+    document.body.style.overflow = 'unset';
+    document.body.classList.remove('modal-open');
+  };
 
   // Fungsi untuk menutup modal dengan ESC key
   useEffect(() => {
@@ -282,14 +282,267 @@ const closeImageModal = () => {
               <button className="btn primary" onClick={toggleShowAllProjects}>
                 {showAllProjects
                   ? "Show Less"
-                  : `Show All Projects (${projects.length})`}
+                  : `Show All Projects`}
               </button>
             </div>
           )}
         </div>
       </section>
 
-      {/* ... sisa section tetap sama ... */}
+      <hr className="divider" />
+
+      {/* Skills Section */}
+      <section className="skills" id="skills">
+        <div className="container">
+          <h2>My Skills</h2>
+          <div className="skills-container">
+            {/* Soft Skills */}
+            <div className="skill-category">
+              <h3>Soft Skills</h3>
+              <div className="skill-list">
+                <div className="skill">
+                  <span>Problem Solving</span>
+                  <div className="skill-bar">
+                    <div className="skill-level" style={{ width: "90%" }}></div>
+                  </div>
+                </div>
+                <div className="skill">
+                  <span>Teamwork</span>
+                  <div className="skill-bar">
+                    <div className="skill-level" style={{ width: "85%" }}></div>
+                  </div>
+                </div>
+                <div className="skill">
+                  <span>Adaptability</span>
+                  <div className="skill-bar">
+                    <div className="skill-level" style={{ width: "80%" }}></div>
+                  </div>
+                </div>
+                <div className="skill">
+                  <span>Continuous Learning</span>
+                  <div className="skill-bar">
+                    <div className="skill-level" style={{ width: "88%" }}></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Software Skills - Dipindahkan ke tengah */}
+            <div className="skill-category software-skills">
+              <h3>Software Skills</h3>
+              <div className="skill-list">
+                <div className="skill">
+                  <span>Visual Studio Code</span>
+                  <div className="skill-bar">
+                    <div className="skill-level" style={{ width: "95%" }}></div>
+                  </div>
+                </div>
+                <div className="skill">
+                  <span>Microsoft Office</span>
+                  <div className="skill-bar">
+                    <div className="skill-level" style={{ width: "90%" }}></div>
+                  </div>
+                </div>
+                <div className="skill">
+                  <span>XAMPP</span>
+                  <div className="skill-bar">
+                    <div className="skill-level" style={{ width: "85%" }}></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Hard Skills */}
+            <div className="skill-category">
+              <h3>Hard Skills</h3>
+              <div className="skill-list">
+                <div className="skill">
+                  <span>HTML</span>
+                  <div className="skill-bar">
+                    <div className="skill-level" style={{ width: "95%" }}></div>
+                  </div>
+                </div>
+                <div className="skill">
+                  <span>JavaScript</span>
+                  <div className="skill-bar">
+                    <div className="skill-level" style={{ width: "85%" }}></div>
+                  </div>
+                </div>
+                <div className="skill">
+                  <span>Python</span>
+                  <div className="skill-bar">
+                    <div className="skill-level" style={{ width: "90%" }}></div>
+                  </div>
+                </div>
+                <div className="skill">
+                  <span>PHP</span>
+                  <div className="skill-bar">
+                    <div className="skill-level" style={{ width: "80%" }}></div>
+                  </div>
+                </div>
+                <div className="skill">
+                  <span>Git</span>
+                  <div className="skill-bar">
+                    <div className="skill-level" style={{ width: "85%" }}></div>
+                  </div>
+                </div>
+                <div className="skill">
+                  <span>Computer Vision</span>
+                  <div className="skill-bar">
+                    <div className="skill-level" style={{ width: "80%" }}></div>
+                  </div>
+                </div>
+                <div className="skill">
+                  <span>PyTorch</span>
+                  <div className="skill-bar">
+                    <div className="skill-level" style={{ width: "82%" }}></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <hr className="divider" />
+
+      {/* Certifications Section */}
+      <section className="certifications" id="certifications">
+        <div className="container">
+          <h2>Certifications</h2>
+          <div className="certifications-grid">
+            <a
+              href="https://drive.google.com/file/d/1JHrog-9J0kqt_k1uw7NC4OMuHQHSk3-A/view?usp=sharing"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="cert-card"
+            >
+              <div className="cert-icon">🏆</div>
+              <div className="cert-content">
+                <h3>Microsoft Office Applied</h3>
+                <p className="cert-org">Trust Training Partners</p>
+                <p className="cert-year">2025</p>
+                <p className="cert-desc">Word, PowerPoint, Excel</p>
+              </div>
+            </a>
+
+            <a
+              href="https://drive.google.com/file/d/142goCJfx5MWfi_nDnQ-rxHDZoqFgAlAf/view?usp=sharing"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="cert-card"
+            >
+              <div className="cert-icon">🌍</div>
+              <div className="cert-content">
+                <h3>Test Of English as A Foreign Language (TOEFL)</h3>
+                <p className="cert-org">Royal English</p>
+                <p className="cert-year">2025</p>
+                <p className="cert-desc">Score: 550</p>
+              </div>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <hr className="divider" />
+
+      {/* Contact Section */}
+      <section className="contact" id="contact">
+        <div className="container">
+          <div className="contact-header">
+            <h2>Get In Touch</h2>
+            <p className="contact-intro">
+              I'm always interested in new opportunities and collaborations.
+              Whether you have a project in mind or just want to say hello, feel
+              free to reach out!
+            </p>
+          </div>
+
+          <div className="contact-content">
+            <div className="contact-info">
+              <div className="contact-card">
+                <a href="mailto:vickoardiansyah86@gmail.com">
+                  <div className="contact-icon">
+                    <FaEnvelope className="email-icon-svg" />
+                  </div>
+                  <div className="contact-detail">
+                    <h4>Email</h4>
+                    <p>vickoardiansyah86@gmail.com</p>
+                  </div>
+                </a>
+              </div>
+
+              <div className="contact-card">
+                <a
+                  href="https://wa.me/6283854254718"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <div className="contact-icon">
+                    <FaPhone className="contact-icon-svg" />
+                  </div>
+                  <div className="contact-detail">
+                    <h4>WhatsApp</h4>
+                    <p>+62 838-5425-4718</p>
+                  </div>
+                </a>
+              </div>
+
+              <div className="contact-card">
+                <div className="contact-icon">
+                  <FaMapMarkerAlt className="contact-icon-svg" />
+                </div>
+                <div className="contact-detail">
+                  <h4>Location</h4>
+                  <p>Nganjuk</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="social-section">
+              <h3>Follow Me</h3>
+              <div className="social-grid">
+                <a
+                  href="https://github.com/P11K"
+                  target="blank"
+                  className="social-card"
+                >
+                  <div className="social-icon">
+                    <FaGithub className="social-icon-svg" />
+                  </div>
+                  <span>GitHub</span>
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/vickoputra"
+                  target="blank"
+                  className="social-card"
+                >
+                  <div className="social-icon">
+                    <FaLinkedin className="social-icon-svg" />
+                  </div>
+                  <span>LinkedIn</span>
+                </a>
+                <a href="#" className="social-card">
+                  <div className="social-icon">
+                    <FaTwitter className="social-icon-svg" />
+                  </div>
+                  <span>Twitter</span>
+                </a>
+                <a
+                  href="https://www.instagram.com/pikoo.__"
+                  target="blank"
+                  className="social-card"
+                >
+                  <div className="social-icon">
+                    <FaInstagram className="social-icon-svg" />
+                  </div>
+                  <span>Instagram</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
