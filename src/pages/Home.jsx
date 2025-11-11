@@ -19,61 +19,85 @@ function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Debug: log projects data saat komponen dimuat
+// Effect untuk profile image - VERSI OPTIMIZED
 useEffect(() => {
   const profileElement = profileRef.current;
-  if (!profileElement) {
-    console.log("Profile element not found");
-    return;
-  }
+  if (!profileElement) return;
 
-  console.log("Setting up 3D effect for profile image");
+  console.log("Setting up optimized 3D effect for profile image");
 
-  const MAX_ROTATION = 8;
-  const ADJUST_FACTOR = 0.5;
+  const MAX_ROTATION = 5; // Kurangi dari 8 ke 5 untuk efek lebih subtle
+  const ADJUST_FACTOR = 0.8; // Naikkan dari 0.5 ke 0.8 untuk responsivitas lebih baik
+  const SMOOTHING_FACTOR = 0.1; // Tambahkan smoothing untuk mengurangi jitter
+
+  let rafId = null;
+  let targetRotateX = 0;
+  let targetRotateY = 0;
+  let currentRotateX = 0;
+  let currentRotateY = 0;
+
+  const updateRotation = () => {
+    // Smoothing effect dengan linear interpolation
+    currentRotateX += (targetRotateX - currentRotateX) * SMOOTHING_FACTOR;
+    currentRotateY += (targetRotateY - currentRotateY) * SMOOTHING_FACTOR;
+
+    const imageElement = profileElement.querySelector("img");
+    if (imageElement) {
+      imageElement.style.setProperty("--rotateX", `${currentRotateX}deg`);
+      imageElement.style.setProperty("--rotateY", `${currentRotateY}deg`);
+    }
+
+    rafId = requestAnimationFrame(updateRotation);
+  };
 
   const handleMouseMove = (e) => {
     const rect = profileElement.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-    const xCenter = x - rect.width / 2;
-    const yCenter = y - rect.height / 2;
-    const rotateY = (xCenter / (rect.width / 2)) * MAX_ROTATION * ADJUST_FACTOR;
-    const rotateX = (yCenter / (rect.height / 2)) * MAX_ROTATION * ADJUST_FACTOR * -1;
+    
+    // Normalisasi koordinat mouse (-0.5 sampai 0.5)
+    const normalizedX = (x / rect.width) - 0.5;
+    const normalizedY = (y / rect.height) - 0.5;
 
-    console.log(`Mouse move - rotateX: ${rotateX}, rotateY: ${rotateY}`);
-
-    const imageElement = profileElement.querySelector("img");
-    if (imageElement) {
-      imageElement.style.setProperty("--rotateX", `${rotateX}deg`);
-      imageElement.style.setProperty("--rotateY", `${rotateY}deg`);
-    } else {
-      console.log("Image element not found inside profile element");
-    }
+    // Hitung rotasi target
+    targetRotateY = normalizedX * MAX_ROTATION * ADJUST_FACTOR;
+    targetRotateX = normalizedY * MAX_ROTATION * ADJUST_FACTOR * -1;
   };
 
   const handleMouseLeave = () => {
-    console.log("Mouse leave");
+    // Smooth return to center
+    targetRotateX = 0;
+    targetRotateY = 0;
+    
     const imageElement = profileElement.querySelector("img");
     if (imageElement) {
-      imageElement.style.transition = "transform 0.5s ease-out, box-shadow 0.3s ease";
-      imageElement.style.setProperty("--rotateX", "0deg");
-      imageElement.style.setProperty("--rotateY", "0deg");
+      imageElement.style.transition = "transform 0.6s ease-out, box-shadow 0.3s ease";
     }
   };
 
   const handleMouseEnter = () => {
-    console.log("Mouse enter");
     const imageElement = profileElement.querySelector("img");
     if (imageElement) {
-      imageElement.style.transition = "box-shadow 0.3s ease, transform 0.05s linear";
+      imageElement.style.transition = "box-shadow 0.3s ease, transform 0.1s linear";
+    }
+    
+    // Start animation loop jika belum berjalan
+    if (!rafId) {
+      rafId = requestAnimationFrame(updateRotation);
     }
   };
+
+  // Start animation loop
+  rafId = requestAnimationFrame(updateRotation);
 
   profileElement.addEventListener("mousemove", handleMouseMove);
   profileElement.addEventListener("mouseleave", handleMouseLeave);
   profileElement.addEventListener("mouseenter", handleMouseEnter);
 
   return () => {
+    if (rafId) {
+      cancelAnimationFrame(rafId);
+    }
     profileElement.removeEventListener("mousemove", handleMouseMove);
     profileElement.removeEventListener("mouseleave", handleMouseLeave);
     profileElement.removeEventListener("mouseenter", handleMouseEnter);

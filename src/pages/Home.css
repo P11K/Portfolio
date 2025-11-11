@@ -124,13 +124,15 @@ h2 {
 }
 
 /* --- Area Gambar Profil (.profile-img) --- */
+/* --- Area Gambar Profil (.profile-img) --- */
 .profile-img {
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  perspective: 1000px;
+  perspective: 1200px; /* Tingkatkan perspective */
   max-width: 400px;
+  transform-style: preserve-3d;
 }
 
 /* --- Gambar Profil (IMG) --- */
@@ -148,15 +150,23 @@ h2 {
   --rotateY: 0deg;
 
   transform: 
-    perspective(1000px) 
+    perspective(1200px) 
     rotateX(var(--rotateX)) 
     rotateY(var(--rotateY)) 
-    scale(1);
+    scale(1)
+    translateZ(0); /* Tambahkan translateZ untuk hardware acceleration */
   
-  transition: all 0.3s ease;
+  transition: 
+    transform 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    box-shadow 0.3s ease;
+  
   transform-style: preserve-3d;
-  
   animation: zoomIn 1s ease-out;
+  
+  /* Optimasi performa */
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .profile-img img:hover {
@@ -164,10 +174,11 @@ h2 {
     0 15px 35px rgba(0, 0, 0, 0.15),
     0 0 0 1px rgba(255, 255, 255, 0.9);
   transform: 
-    perspective(1000px) 
+    perspective(1200px) 
     rotateX(var(--rotateX)) 
     rotateY(var(--rotateY)) 
-    scale(1.02);
+    scale(1.03) /* Sedikit kurangi scale */
+    translateZ(20px); /* Tambahkan depth pada hover */
 }
 
 /* efek cahaya di belakang foto */
@@ -182,6 +193,60 @@ h2 {
   filter: blur(40px);
   opacity: 0.6;
   animation: pulse 4s infinite alternate;
+  transform: translateZ(-50px); /* Beri depth pada glow effect */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .profile-img {
+    perspective: 1000px; /* Kurangi perspective di mobile */
+  }
+  
+  .profile-img img {
+    width: 200px;
+    height: 200px;
+    transform: 
+      perspective(1000px) 
+      rotateX(var(--rotateX)) 
+      rotateY(var(--rotateY)) 
+      scale(1)
+      translateZ(0);
+  }
+  
+  .profile-img img:hover {
+    transform: 
+      perspective(1000px) 
+      rotateX(var(--rotateX)) 
+      rotateY(var(--rotateY)) 
+      scale(1.02)
+      translateZ(10px);
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-img {
+    perspective: 800px;
+  }
+  
+  .profile-img img {
+    width: 160px;
+    height: 160px;
+    transform: 
+      perspective(800px) 
+      rotateX(var(--rotateX)) 
+      rotateY(var(--rotateY)) 
+      scale(1)
+      translateZ(0);
+  }
+  
+  .profile-img img:hover {
+    transform: 
+      perspective(800px) 
+      rotateX(var(--rotateX)) 
+      rotateY(var(--rotateY)) 
+      scale(1.01)
+      translateZ(5px);
+  }
 }
 
 /* --- About Section --- */
