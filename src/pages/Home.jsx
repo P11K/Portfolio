@@ -333,7 +333,7 @@ function Home() {
             >
               <div className="cert-icon">🏆</div>
               <div className="cert-content">
-                <h3 class="long-title">Microsoft Office Applied</h3>
+                <h3>Microsoft Office Applied</h3>
                 <p className="cert-org">Trust Training Partners</p>
                 <p className="cert-year">2025</p>
                 <p className="cert-desc">Word, PowerPoint, Excel</p>
