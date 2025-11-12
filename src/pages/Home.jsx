@@ -24,85 +24,63 @@ useEffect(() => {
   const profileElement = profileRef.current;
   if (!profileElement) return;
 
-  console.log("Setting up optimized 3D effect for profile image");
+  const MAX_ROTATION = 10; // Lebih dinamis tapi tetap natural
+  const SMOOTHING = 0.08; // smoothing lebih lembut
+  const MAX_SHADOW = 30; // bayangan menyesuaikan arah rotasi
 
-  const MAX_ROTATION = 5; // Kurangi dari 8 ke 5 untuk efek lebih subtle
-  const ADJUST_FACTOR = 0.8; // Naikkan dari 0.5 ke 0.8 untuk responsivitas lebih baik
-  const SMOOTHING_FACTOR = 0.1; // Tambahkan smoothing untuk mengurangi jitter
+  let currentX = 0, currentY = 0;
+  let targetX = 0, targetY = 0;
+  let rafId;
 
-  let rafId = null;
-  let targetRotateX = 0;
-  let targetRotateY = 0;
-  let currentRotateX = 0;
-  let currentRotateY = 0;
+  const update = () => {
+    currentX += (targetX - currentX) * SMOOTHING;
+    currentY += (targetY - currentY) * SMOOTHING;
 
-  const updateRotation = () => {
-    // Smoothing effect dengan linear interpolation
-    currentRotateX += (targetRotateX - currentRotateX) * SMOOTHING_FACTOR;
-    currentRotateY += (targetRotateY - currentRotateY) * SMOOTHING_FACTOR;
+    const img = profileElement.querySelector("img");
+    if (img) {
+      img.style.setProperty("--rotateX", `${currentX.toFixed(2)}deg`);
+      img.style.setProperty("--rotateY", `${currentY.toFixed(2)}deg`);
 
-    const imageElement = profileElement.querySelector("img");
-    if (imageElement) {
-      imageElement.style.setProperty("--rotateX", `${currentRotateX}deg`);
-      imageElement.style.setProperty("--rotateY", `${currentRotateY}deg`);
+      // Arah bayangan dinamis berdasarkan posisi mouse
+      const shadowX = (currentY / MAX_ROTATION) * MAX_SHADOW;
+      const shadowY = (currentX / MAX_ROTATION) * MAX_SHADOW;
+      img.style.boxShadow = `
+        ${-shadowY}px ${shadowX}px 30px rgba(0,0,0,0.15),
+        0 0 0 1px rgba(255,255,255,0.7)
+      `;
     }
 
-    rafId = requestAnimationFrame(updateRotation);
+    rafId = requestAnimationFrame(update);
   };
 
-  const handleMouseMove = (e) => {
+  const handleMove = (e) => {
     const rect = profileElement.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-    
-    // Normalisasi koordinat mouse (-0.5 sampai 0.5)
-    const normalizedX = (x / rect.width) - 0.5;
-    const normalizedY = (y / rect.height) - 0.5;
+    const normX = (x / rect.width - 0.5) * 2; // range -1..1
+    const normY = (y / rect.height - 0.5) * 2;
 
-    // Hitung rotasi target
-    targetRotateY = normalizedX * MAX_ROTATION * ADJUST_FACTOR;
-    targetRotateX = normalizedY * MAX_ROTATION * ADJUST_FACTOR * -1;
+    targetY = normX * MAX_ROTATION;
+    targetX = -normY * MAX_ROTATION;
   };
 
-  const handleMouseLeave = () => {
-    // Smooth return to center
-    targetRotateX = 0;
-    targetRotateY = 0;
-    
-    const imageElement = profileElement.querySelector("img");
-    if (imageElement) {
-      imageElement.style.transition = "transform 0.6s ease-out, box-shadow 0.3s ease";
-    }
+  const handleLeave = () => {
+    targetX = 0;
+    targetY = 0;
   };
 
-  const handleMouseEnter = () => {
-    const imageElement = profileElement.querySelector("img");
-    if (imageElement) {
-      imageElement.style.transition = "box-shadow 0.3s ease, transform 0.1s linear";
-    }
-    
-    // Start animation loop jika belum berjalan
-    if (!rafId) {
-      rafId = requestAnimationFrame(updateRotation);
-    }
-  };
+  profileElement.addEventListener("mousemove", handleMove);
+  profileElement.addEventListener("mouseleave", handleLeave);
 
-  // Start animation loop
-  rafId = requestAnimationFrame(updateRotation);
-
-  profileElement.addEventListener("mousemove", handleMouseMove);
-  profileElement.addEventListener("mouseleave", handleMouseLeave);
-  profileElement.addEventListener("mouseenter", handleMouseEnter);
+  rafId = requestAnimationFrame(update);
 
   return () => {
-    if (rafId) {
-      cancelAnimationFrame(rafId);
-    }
-    profileElement.removeEventListener("mousemove", handleMouseMove);
-    profileElement.removeEventListener("mouseleave", handleMouseLeave);
-    profileElement.removeEventListener("mouseenter", handleMouseEnter);
+    cancelAnimationFrame(rafId);
+    profileElement.removeEventListener("mousemove", handleMove);
+    profileElement.removeEventListener("mouseleave", handleLeave);
   };
 }, []);
+
 
   // Tampilkan semua project atau hanya 3 project pertama
   const displayedProjects = showAllProjects ? projects : projects.slice(0, 3);

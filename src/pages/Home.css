@@ -123,131 +123,123 @@ h2 {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* --- Area Gambar Profil (.profile-img) --- */
-/* --- Area Gambar Profil (.profile-img) --- */
+/* --- PROFILE IMAGE AREA (FULL OPTIMIZED VERSION) --- */
+
 .profile-img {
+  position: relative;
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  perspective: 1200px; /* Tingkatkan perspective */
-  max-width: 400px;
+  perspective: 1400px; /* Lebih dalam untuk efek 3D lebih nyata */
+  max-width: 420px;
   transform-style: preserve-3d;
+  overflow: visible;
 }
 
-/* --- Gambar Profil (IMG) --- */
+/* --- PROFILE IMAGE (IMG) --- */
 .profile-img img {
   width: 270px;
   height: 270px;
   object-fit: cover;
-  border-radius: 8px;
+  border-radius: 14px;
   border: none;
-  box-shadow: 
-    0 8px 25px rgba(0, 0, 0, 0.1),
-    0 0 0 1px rgba(255, 255, 255, 0.8);
-  
+
+
+  /* Custom properties controlled by JS */
   --rotateX: 0deg;
   --rotateY: 0deg;
 
-  transform: 
-    perspective(1200px) 
-    rotateX(var(--rotateX)) 
-    rotateY(var(--rotateY)) 
+  transform:
+    perspective(1400px)
+    rotateX(var(--rotateX))
+    rotateY(var(--rotateY))
     scale(1)
-    translateZ(0); /* Tambahkan translateZ untuk hardware acceleration */
-  
-  transition: 
+    translateZ(0);
+
+  transition:
     transform 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94),
     box-shadow 0.3s ease;
   
   transform-style: preserve-3d;
-  animation: zoomIn 1s ease-out;
-  
-  /* Optimasi performa */
+  animation: fadeZoomIn 0.8s ease-out;
+
+  /* Optimize performance */
   will-change: transform;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
 }
 
+/* --- Hover & depth effects --- */
 .profile-img img:hover {
-  box-shadow: 
-    0 15px 35px rgba(0, 0, 0, 0.15),
-    0 0 0 1px rgba(255, 255, 255, 0.9);
-  transform: 
-    perspective(1200px) 
-    rotateX(var(--rotateX)) 
-    rotateY(var(--rotateY)) 
-    scale(1.03) /* Sedikit kurangi scale */
-    translateZ(20px); /* Tambahkan depth pada hover */
+
+  transform:
+    perspective(1400px)
+    rotateX(var(--rotateX))
+    rotateY(var(--rotateY))
+    scale(1.05)
+    translateZ(25px);
 }
 
-/* efek cahaya di belakang foto */
-.profile-img::before {
-  content: "";
-  position: absolute;
-  width: 300px;
-  height: 300px;
-  border-radius: 12px;
-  background: radial-gradient(circle, rgba(156, 163, 175, 0.3), transparent 75%);
-  z-index: -1;
-  filter: blur(40px);
-  opacity: 0.6;
-  animation: pulse 4s infinite alternate;
-  transform: translateZ(-50px); /* Beri depth pada glow effect */
+/* --- Light glow behind the photo --- */
+
+
+/* --- Keyframes for subtle entrance & glow --- */
+@keyframes fadeZoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
-/* Responsive adjustments */
+@keyframes glowPulse {
+  from {
+    opacity: 0.5;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+/* --- RESPONSIVE ADJUSTMENTS --- */
 @media (max-width: 768px) {
   .profile-img {
-    perspective: 1000px; /* Kurangi perspective di mobile */
+    perspective: 1100px;
   }
-  
+
   .profile-img img {
     width: 200px;
     height: 200px;
-    transform: 
-      perspective(1000px) 
-      rotateX(var(--rotateX)) 
-      rotateY(var(--rotateY)) 
-      scale(1)
-      translateZ(0);
   }
-  
-  .profile-img img:hover {
-    transform: 
-      perspective(1000px) 
-      rotateX(var(--rotateX)) 
-      rotateY(var(--rotateY)) 
-      scale(1.02)
-      translateZ(10px);
+
+  .profile-img::before {
+    width: 220px;
+    height: 220px;
   }
 }
 
 @media (max-width: 480px) {
   .profile-img {
-    perspective: 800px;
+    perspective: 900px;
   }
-  
+
   .profile-img img {
-    width: 160px;
-    height: 160px;
-    transform: 
-      perspective(800px) 
-      rotateX(var(--rotateX)) 
-      rotateY(var(--rotateY)) 
-      scale(1)
-      translateZ(0);
+    width: 150px;
+    height: 150px;
   }
-  
-  .profile-img img:hover {
-    transform: 
-      perspective(800px) 
-      rotateX(var(--rotateX)) 
-      rotateY(var(--rotateY)) 
-      scale(1.01)
-      translateZ(5px);
+
+  .profile-img::before {
+    width: 180px;
+    height: 180px;
   }
 }
+
 
 /* --- About Section --- */
 .about {
