@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import projects from "../data/project";
+import skills from "../data/skill"; // Import data skills
 import "./Home.css";
 import {
   FaGithub,
@@ -12,75 +13,105 @@ import {
   FaTimes,
 } from "react-icons/fa";
 
+
 function Home() {
   const profileRef = useRef(null);
   const [showAllProjects, setShowAllProjects] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Debug: log projects data saat komponen dimuat
-// Effect untuk profile image - VERSI OPTIMIZED
-useEffect(() => {
-  const profileElement = profileRef.current;
-  if (!profileElement) return;
+  // Destructure skills data dari JSON
+  const { softSkills, softwareSkills, hardSkills } = skills;
 
-  const MAX_ROTATION = 10; // Lebih dinamis tapi tetap natural
-  const SMOOTHING = 0.08; // smoothing lebih lembut
-  const MAX_SHADOW = 30; // bayangan menyesuaikan arah rotasi
+  // Fungsi untuk membuka modal
+  const openImageModal = (imageUrl, title) => {
+    console.log("Opening modal with:", imageUrl, title);
+    setSelectedImage({ url: imageUrl, title });
+    setIsModalOpen(true);
+  };
 
-  let currentX = 0, currentY = 0;
-  let targetX = 0, targetY = 0;
-  let rafId;
+  // Fungsi untuk menutup modal
+  const closeImageModal = () => {
+    console.log("Closing modal");
+    setIsModalOpen(false);
+    setSelectedImage(null);
+  };
 
-  const update = () => {
-    currentX += (targetX - currentX) * SMOOTHING;
-    currentY += (targetY - currentY) * SMOOTHING;
+  // Effect untuk ESC key
+  useEffect(() => {
+    const handleEscKey = (e) => {
+      if (e.key === 'Escape' && isModalOpen) {
+        closeImageModal();
+      }
+    };
 
-    const img = profileElement.querySelector("img");
-    if (img) {
-      img.style.setProperty("--rotateX", `${currentX.toFixed(2)}deg`);
-      img.style.setProperty("--rotateY", `${currentY.toFixed(2)}deg`);
+    document.addEventListener('keydown', handleEscKey);
+    
+    return () => {
+      document.removeEventListener('keydown', handleEscKey);
+    };
+  }, [isModalOpen]);
 
-      // Arah bayangan dinamis berdasarkan posisi mouse
-      const shadowX = (currentY / MAX_ROTATION) * MAX_SHADOW;
-      const shadowY = (currentX / MAX_ROTATION) * MAX_SHADOW;
-      img.style.boxShadow = `
-        ${-shadowY}px ${shadowX}px 30px rgba(0,0,0,0.15),
-        0 0 0 1px rgba(255,255,255,0.7)
-      `;
-    }
+  // Effect untuk profile image
+  useEffect(() => {
+    const profileElement = profileRef.current;
+    if (!profileElement) return;
+
+    const MAX_ROTATION = 10;
+    const SMOOTHING = 0.08;
+    const MAX_SHADOW = 30;
+
+    let currentX = 0, currentY = 0;
+    let targetX = 0, targetY = 0;
+    let rafId;
+
+    const update = () => {
+      currentX += (targetX - currentX) * SMOOTHING;
+      currentY += (targetY - currentY) * SMOOTHING;
+
+      const img = profileElement.querySelector("img");
+      if (img) {
+        img.style.setProperty("--rotateX", `${currentX}deg`);
+        img.style.setProperty("--rotateY", `${currentY}deg`);
+
+        const shadowX = (currentY / MAX_ROTATION) * MAX_SHADOW;
+        const shadowY = (currentX / MAX_ROTATION) * MAX_SHADOW;
+        img.style.boxShadow = `
+          ${-shadowY}px ${shadowX}px 30px rgba(0,0,0,0.15),
+          0 0 0 1px rgba(255,255,255,0.7)
+        `;
+      }
+
+      rafId = requestAnimationFrame(update);
+    };
+
+    const handleMove = (e) => {
+      const rect = profileElement.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const normX = (x / rect.width - 0.5) * 2;
+      const normY = (y / rect.height - 0.5) * 2;
+
+      targetY = normX * MAX_ROTATION;
+      targetX = -normY * MAX_ROTATION;
+    };
+
+    const handleLeave = () => {
+      targetX = 0;
+      targetY = 0;
+    };
+
+    profileElement.addEventListener("mousemove", handleMove);
+    profileElement.addEventListener("mouseleave", handleLeave);
 
     rafId = requestAnimationFrame(update);
-  };
 
-  const handleMove = (e) => {
-    const rect = profileElement.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const normX = (x / rect.width - 0.5) * 2; // range -1..1
-    const normY = (y / rect.height - 0.5) * 2;
-
-    targetY = normX * MAX_ROTATION;
-    targetX = -normY * MAX_ROTATION;
-  };
-
-  const handleLeave = () => {
-    targetX = 0;
-    targetY = 0;
-  };
-
-  profileElement.addEventListener("mousemove", handleMove);
-  profileElement.addEventListener("mouseleave", handleLeave);
-
-  rafId = requestAnimationFrame(update);
-
-  return () => {
-    cancelAnimationFrame(rafId);
-    profileElement.removeEventListener("mousemove", handleMove);
-    profileElement.removeEventListener("mouseleave", handleLeave);
-  };
-}, []);
-
+    return () => {
+      cancelAnimationFrame(rafId);
+      profileElement.removeEventListener("mousemove", handleMove);
+      profileElement.removeEventListener("mouseleave", handleLeave);
+    };
+  }, []);
 
   // Tampilkan semua project atau hanya 3 project pertama
   const displayedProjects = showAllProjects ? projects : projects.slice(0, 3);
@@ -88,6 +119,23 @@ useEffect(() => {
   const toggleShowAllProjects = () => {
     setShowAllProjects(!showAllProjects);
   };
+
+  // Komponen untuk menampilkan rating bintang
+const RatingStars = ({ rating }) => {
+  const totalStars = 10;
+  return (
+    <div className="rating-stars">
+      {Array.from({ length: totalStars }, (_, index) => (
+        <span
+          key={index}
+          className={`star ${index < rating ? "filled" : "empty"}`}
+        >
+          {index < rating ? "★" : "☆"}
+        </span>
+      ))}
+    </div>
+  );
+};
 
   return (
     <div className="portfolio-container">
@@ -103,8 +151,7 @@ useEffect(() => {
               alt={selectedImage.title} 
               onError={(e) => {
                 console.error("Error loading image:", selectedImage.url);
-                console.error("Image element:", e.target);
-                e.target.src = "/fallback-image.jpg"; // Fallback image
+                e.target.src = "/fallback-image.jpg";
               }}
               onLoad={() => console.log("Image loaded successfully:", selectedImage.url)}
             />
@@ -260,117 +307,69 @@ useEffect(() => {
       <hr className="divider" />
 
       {/* Skills Section */}
-      <section className="skills" id="skills">
-        <div className="container">
-          <h2>My Skills</h2>
-          <div className="skills-container">
-            {/* Soft Skills */}
-            <div className="skill-category">
-              <h3>Soft Skills</h3>
-              <div className="skill-list">
-                <div className="skill">
-                  <span>Problem Solving</span>
-                  <div className="skill-bar">
-                    <div className="skill-level" style={{ width: "90%" }}></div>
-                  </div>
-                </div>
-                <div className="skill">
-                  <span>Teamwork</span>
-                  <div className="skill-bar">
-                    <div className="skill-level" style={{ width: "85%" }}></div>
-                  </div>
-                </div>
-                <div className="skill">
-                  <span>Adaptability</span>
-                  <div className="skill-bar">
-                    <div className="skill-level" style={{ width: "80%" }}></div>
-                  </div>
-                </div>
-                <div className="skill">
-                  <span>Continuous Learning</span>
-                  <div className="skill-bar">
-                    <div className="skill-level" style={{ width: "88%" }}></div>
-                  </div>
-                </div>
+<section className="skills" id="skills">
+  <div className="container">
+    <h2>My Skills</h2>
+    <div className="skills-container">
+      {/* Soft Skills */}
+      <div className="skill-category soft-skills">
+        <h3>Soft Skills</h3>
+        <div className="skill-list">
+          {softSkills.map((skill, index) => (
+            <div key={index} className="skill-item-rating">
+              <div className="skill-header">
+                <span className="skill-name">{skill.name}</span>
+                <span className="skill-rating">{skill.rating}/10</span>
+              </div>
+              <RatingStars rating={skill.rating} />
+              <div className="skill-description">
+                {skill.description}
               </div>
             </div>
-
-            {/* Software Skills - Dipindahkan ke tengah */}
-            <div className="skill-category software-skills">
-              <h3>Software Skills</h3>
-              <div className="skill-list">
-                <div className="skill">
-                  <span>Visual Studio Code</span>
-                  <div className="skill-bar">
-                    <div className="skill-level" style={{ width: "95%" }}></div>
-                  </div>
-                </div>
-                <div className="skill">
-                  <span>Microsoft Office</span>
-                  <div className="skill-bar">
-                    <div className="skill-level" style={{ width: "90%" }}></div>
-                  </div>
-                </div>
-                <div className="skill">
-                  <span>XAMPP</span>
-                  <div className="skill-bar">
-                    <div className="skill-level" style={{ width: "85%" }}></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Hard Skills */}
-            <div className="skill-category">
-              <h3>Hard Skills</h3>
-              <div className="skill-list">
-                <div className="skill">
-                  <span>HTML</span>
-                  <div className="skill-bar">
-                    <div className="skill-level" style={{ width: "95%" }}></div>
-                  </div>
-                </div>
-                <div className="skill">
-                  <span>JavaScript</span>
-                  <div className="skill-bar">
-                    <div className="skill-level" style={{ width: "85%" }}></div>
-                  </div>
-                </div>
-                <div className="skill">
-                  <span>Python</span>
-                  <div className="skill-bar">
-                    <div className="skill-level" style={{ width: "90%" }}></div>
-                  </div>
-                </div>
-                <div className="skill">
-                  <span>PHP</span>
-                  <div className="skill-bar">
-                    <div className="skill-level" style={{ width: "80%" }}></div>
-                  </div>
-                </div>
-                <div className="skill">
-                  <span>Git</span>
-                  <div className="skill-bar">
-                    <div className="skill-level" style={{ width: "85%" }}></div>
-                  </div>
-                </div>
-                <div className="skill">
-                  <span>Computer Vision</span>
-                  <div className="skill-bar">
-                    <div className="skill-level" style={{ width: "80%" }}></div>
-                  </div>
-                </div>
-                <div className="skill">
-                  <span>PyTorch</span>
-                  <div className="skill-bar">
-                    <div className="skill-level" style={{ width: "82%" }}></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
-      </section>
+      </div>
+
+      {/* Software Skills */}
+      <div className="skill-category software-skills">
+        <h3>Software Skills</h3>
+        <div className="skill-list">
+          {softwareSkills.map((skill, index) => (
+            <div key={index} className="skill-item-rating">
+              <div className="skill-header">
+                <span className="skill-name">{skill.name}</span>
+                <span className="skill-rating">{skill.rating}/10</span>
+              </div>
+              <RatingStars rating={skill.rating} />
+              <div className="skill-description">
+                {skill.description}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Hard Skills */}
+      <div className="skill-category hard-skills">
+        <h3>Hard Skills</h3>
+        <div className="skill-list">
+          {hardSkills.map((skill, index) => (
+            <div key={index} className="skill-item-rating">
+              <div className="skill-header">
+                <span className="skill-name">{skill.name}</span>
+                <span className="skill-rating">{skill.rating}/10</span>
+              </div>
+              <RatingStars rating={skill.rating} />
+              <div className="skill-description">
+                {skill.description}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
       <hr className="divider" />
 

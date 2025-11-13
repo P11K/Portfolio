@@ -1,0 +1,78 @@
+{
+  "softSkills": [
+    { 
+      "name": "Problem Solving", 
+      "rating": 9,
+      "description": "Analytical thinking and creative approach to solve complex challenges"
+    },
+    { 
+      "name": "Teamwork", 
+      "rating": 8,
+      "description": "Collaborate effectively with team members to achieve common goals"
+    },
+    { 
+      "name": "Adaptability", 
+      "rating": 8,
+      "description": "Quickly adjust to new conditions and learn new technologies"
+    },
+    { 
+      "name": "Continuous Learning", 
+      "rating": 9,
+      "description": "Constantly updating skills and knowledge in rapidly evolving tech field"
+    }
+  ],
+  "softwareSkills": [
+    { 
+      "name": "Visual Studio Code", 
+      "rating": 9,
+      "description": "Primary code editor with expertise in extensions and debugging"
+    },
+    { 
+      "name": "Microsoft Office", 
+      "rating": 9,
+      "description": "Proficient in Word, Excel, PowerPoint for documentation and analysis"
+    },
+    { 
+      "name": "XAMPP", 
+      "rating": 8,
+      "description": "Local server environment for web development and testing"
+    }
+  ],
+  "hardSkills": [
+    { 
+      "name": "HTML", 
+      "rating": 9,
+      "description": "Semantic markup, accessibility, and modern HTML5 features"
+    },
+    { 
+      "name": "JavaScript", 
+      "rating": 8,
+      "description": "ES6+, DOM manipulation, asynchronous programming, and modern frameworks"
+    },
+    { 
+      "name": "Python", 
+      "rating": 9,
+      "description": "Data analysis, machine learning, scripting, and backend development"
+    },
+    { 
+      "name": "PHP", 
+      "rating": 8,
+      "description": "Server-side scripting, WordPress development, and database integration"
+    },
+    { 
+      "name": "Git", 
+      "rating": 8,
+      "description": "Version control, branching strategies, and collaborative workflows"
+    },
+    { 
+      "name": "Computer Vision", 
+      "rating": 8,
+      "description": "Image processing, object detection, and OpenCV library"
+    },
+    { 
+      "name": "PyTorch", 
+      "rating": 8,
+      "description": "Deep learning models, neural networks, and tensor operations"
+    }
+  ]
+}

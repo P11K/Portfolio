@@ -1,36 +1,29 @@
 /* --- Style Dasar Navbar (CLASSIC GLASS EFFECT) --- */
 .navbar {
   display: flex;
-  
-  /* PERUBAHAN UTAMA: Item dirapatkan ke kiri */
-  justify-content: flex-start; 
-  /* Memberi jarak yang baik antara Logo (item 1) dan Nav Links (item 2) */
-  gap: 4rem; 
-  
+  justify-content: flex-start; /* Logo di kiri, nav di kanan */
+  gap: 4rem;
   align-items: center;
-  
-  /* EFEK GLASS: Latar belakang putih transparan */
-  background-color: rgba(255, 255, 255, 0.7); /* Putih dengan transparansi 70% */
-  backdrop-filter: blur(10px); /* Kunci untuk efek buram */
-  
-  color: #222; /* Teks gelap agar kontras dengan latar belakang terang */
+
+  background-color: rgba(255, 255, 255, 0.7); /* Glass effect */
+  backdrop-filter: blur(10px);
+
+  color: #222;
   padding: 1rem 10%;
-  
-  /* Bayangan lembut untuk mengangkat navbar dari halaman */
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  
+
   position: sticky;
   top: 0;
   z-index: 100;
   transition: padding 0.3s ease;
 }
 
-/* --- Style Logo --- */
+/* --- Logo --- */
 .logo {
   font-size: 1.6rem;
   font-weight: bold;
   text-decoration: none;
-  color: #222; /* Teks gelap */
+  color: #222;
   transition: transform 0.3s ease;
 }
 
@@ -39,10 +32,10 @@
 }
 
 .logo .dot {
-  color: #007bff; /* Aksen biru */
+  color: #007bff; /* Biru aksen */
 }
 
-/* --- Style Link Navigasi (Desktop) --- */
+/* --- Link Navigasi --- */
 .nav-links {
   display: flex;
   list-style: none;
@@ -51,18 +44,26 @@
   padding: 0;
 }
 
-.nav-links li a {
+/* Style untuk semua link dan tombol agar seragam */
+.nav-links li a,
+.nav-links li button {
+  background: none;
+  border: none;
+  cursor: pointer;
+
   text-decoration: none;
-  color: #222; /* Teks gelap */
+  color: #222;
   font-weight: 500;
   font-size: 1.05rem;
   position: relative;
   padding-bottom: 6px;
   transition: color 0.3s ease;
+  font-family: inherit;
 }
 
 /* Garis bawah animasi */
-.nav-links li a::after {
+.nav-links li a::after,
+.nav-links li button::after {
   content: '';
   position: absolute;
   bottom: 0;
@@ -70,41 +71,72 @@
   transform: translateX(-50%);
   width: 0;
   height: 2px;
-  background-color: #007bff; /* Aksen biru */
+  background-color: #007bff;
   transition: width 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
 }
 
-/* Saat di-hover ATAU aktif, lebarkan garis & ubah warna teks */
+/* Hover dan aktif */
 .nav-links li a:hover::after,
+.nav-links li button:hover::after,
 .nav-links li.active a::after {
   width: 100%;
 }
 
 .nav-links li a:hover,
+.nav-links li button:hover,
 .nav-links li.active a {
-  color: #007bff; /* Warna berubah jadi biru */
+  color: #007bff;
 }
 
+/* --- Tombol View CV spesifik (agar sejajar dengan link) --- */
+.view-cv-btn {
+  all: unset; /* reset style button */
+  cursor: pointer;
+  color: #222;
+  font-weight: 500;
+  font-size: 1.05rem;
+  position: relative;
+  padding-bottom: 6px;
+  transition: color 0.3s ease;
+}
 
-/* --- Hamburger Menu Toggle --- */
+.view-cv-btn:hover {
+  color: #007bff;
+}
+
+/* Animasi garis bawah (sama seperti link lain) */
+.view-cv-btn::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 2px;
+  background-color: #007bff;
+  transition: width 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+.view-cv-btn:hover::after {
+  width: 100%;
+}
+
+/* --- Hamburger Menu --- */
 .menu-toggle {
   display: none;
   font-size: 1.8rem;
   background: none;
   border: none;
   cursor: pointer;
-  color: #222; /* Ikon gelap */
+  color: #222;
   z-index: 101;
 }
 
-
-/* --- Mode Responsif (Mobile) --- */
+/* --- Responsif (Mobile) --- */
 @media (max-width: 768px) {
-  
-  /* Di mobile, kembalikan ke space-between agar logo dan hamburger tetap terpisah */
   .navbar {
     padding: 1rem 5%;
-    justify-content: space-between; /* Dikembalikan ke default di mobile */
+    justify-content: space-between;
     gap: 0;
   }
 
@@ -117,21 +149,21 @@
     top: 100%;
     left: 0;
     right: 0;
-    
-    background-color: white; /* Latar belakang solid putih saat di mobile */
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-    border-top: 1px solid #f0f0f0; 
-    
+
+    background-color: white;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    border-top: 1px solid #f0f0f0;
+
     flex-direction: column;
     align-items: center;
     gap: 1.5rem;
     padding: 1.5rem 0;
-    
+
     opacity: 0;
     visibility: hidden;
     transform: translateY(-10px);
-    transition: opacity 0.3s ease-out, 
-                transform 0.3s ease-out, 
+    transition: opacity 0.3s ease-out,
+                transform 0.3s ease-out,
                 visibility 0.3s;
   }
 
@@ -140,12 +172,14 @@
     visibility: visible;
     transform: translateY(0);
   }
-  
-  .nav-links li a {
+
+  .nav-links li a,
+  .nav-links li button {
     font-size: 1.2rem;
   }
-  
-  .nav-links li a::after {
+
+  .nav-links li a::after,
+  .nav-links li button::after {
     height: 3px;
   }
 }

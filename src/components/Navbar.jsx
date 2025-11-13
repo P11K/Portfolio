@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { HashLink } from "react-router-hash-link"; // ✅ Import HashLink
 import "./Navbar.css";
 
 function Navbar() {
@@ -8,11 +10,10 @@ function Navbar() {
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const closeMenu = () => setIsMenuOpen(false);
 
-  // Update activeSection berdasarkan scroll
   useEffect(() => {
     const handleScroll = () => {
       const sections = ["home", "about", "projects", "skills", "certifications", "contact"];
-      const scrollPos = window.scrollY + 100; // offset sedikit
+      const scrollPos = window.scrollY + 100;
 
       for (let id of sections) {
         const section = document.getElementById(id);
@@ -32,9 +33,10 @@ function Navbar() {
 
   return (
     <nav className="navbar">
-      <a href="#home" className="logo" onClick={closeMenu}>
+      {/* Logo tetap pakai HashLink agar smooth scroll */}
+      <HashLink smooth to="/#home" className="logo" onClick={closeMenu}>
         Portfolio<span className="dot">.</span>
-      </a>
+      </HashLink>
 
       <button className="menu-toggle" onClick={toggleMenu}>
         {isMenuOpen ? "X" : "☰"}
@@ -42,19 +44,26 @@ function Navbar() {
 
       <ul className={`nav-links ${isMenuOpen ? "open" : ""}`}>
         <li className={activeSection === "about" ? "active" : ""}>
-          <a href="#about" onClick={closeMenu}>About</a>
+          <HashLink smooth to="/#about" onClick={closeMenu}>About</HashLink>
         </li>
         <li className={activeSection === "projects" ? "active" : ""}>
-          <a href="#projects" onClick={closeMenu}>Projects</a>
+          <HashLink smooth to="/#projects" onClick={closeMenu}>Projects</HashLink>
         </li>
         <li className={activeSection === "skills" ? "active" : ""}>
-          <a href="#skills" onClick={closeMenu}>Skills</a>
+          <HashLink smooth to="/#skills" onClick={closeMenu}>Skills</HashLink>
         </li>
         <li className={activeSection === "certifications" ? "active" : ""}>
-          <a href="#certifications" onClick={closeMenu}>Certifications</a>
+          <HashLink smooth to="/#certifications" onClick={closeMenu}>Certifications</HashLink>
         </li>
         <li className={activeSection === "contact" ? "active" : ""}>
-          <a href="#contact" onClick={closeMenu}>Contact</a>
+          <HashLink smooth to="/#contact" onClick={closeMenu}>Contact</HashLink>
+        </li>
+
+        {/* Tombol View CV tetap route react-router */}
+        <li>
+          <Link to="/cv" className="view-cv-btn" onClick={closeMenu}>
+            View CV
+          </Link>
         </li>
       </ul>
     </nav>
