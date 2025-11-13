@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import projects from "../data/project";
+import certifications from "../data/sertif.json";
 import skills from "../data/skill"; // Import data skills
 import "./Home.css";
 import {
@@ -13,7 +14,6 @@ import {
   FaTimes,
 } from "react-icons/fa";
 
-
 function Home() {
   const profileRef = useRef(null);
   const [showAllProjects, setShowAllProjects] = useState(false);
@@ -22,6 +22,8 @@ function Home() {
 
   // Destructure skills data dari JSON
   const { softSkills, softwareSkills, hardSkills } = skills;
+
+  // Data certifications
 
   // Fungsi untuk membuka modal
   const openImageModal = (imageUrl, title) => {
@@ -121,21 +123,21 @@ function Home() {
   };
 
   // Komponen untuk menampilkan rating bintang
-const RatingStars = ({ rating }) => {
-  const totalStars = 10;
-  return (
-    <div className="rating-stars">
-      {Array.from({ length: totalStars }, (_, index) => (
-        <span
-          key={index}
-          className={`star ${index < rating ? "filled" : "empty"}`}
-        >
-          {index < rating ? "★" : "☆"}
-        </span>
-      ))}
-    </div>
-  );
-};
+  const RatingStars = ({ rating }) => {
+    const totalStars = 10;
+    return (
+      <div className="rating-stars">
+        {Array.from({ length: totalStars }, (_, index) => (
+          <span
+            key={index}
+            className={`star ${index < rating ? "filled" : "empty"}`}
+          >
+            {index < rating ? "★" : "☆"}
+          </span>
+        ))}
+      </div>
+    );
+  };
 
   return (
     <div className="portfolio-container">
@@ -307,109 +309,97 @@ const RatingStars = ({ rating }) => {
       <hr className="divider" />
 
       {/* Skills Section */}
-<section className="skills" id="skills">
-  <div className="container">
-    <h2>My Skills</h2>
-    <div className="skills-container">
-      {/* Soft Skills */}
-      <div className="skill-category soft-skills">
-        <h3>Soft Skills</h3>
-        <div className="skill-list">
-          {softSkills.map((skill, index) => (
-            <div key={index} className="skill-item-rating">
-              <div className="skill-header">
-                <span className="skill-name">{skill.name}</span>
-                <span className="skill-rating">{skill.rating}/10</span>
-              </div>
-              <RatingStars rating={skill.rating} />
-              <div className="skill-description">
-                {skill.description}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Software Skills */}
-      <div className="skill-category software-skills">
-        <h3>Software Skills</h3>
-        <div className="skill-list">
-          {softwareSkills.map((skill, index) => (
-            <div key={index} className="skill-item-rating">
-              <div className="skill-header">
-                <span className="skill-name">{skill.name}</span>
-                <span className="skill-rating">{skill.rating}/10</span>
-              </div>
-              <RatingStars rating={skill.rating} />
-              <div className="skill-description">
-                {skill.description}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Hard Skills */}
-      <div className="skill-category hard-skills">
-        <h3>Hard Skills</h3>
-        <div className="skill-list">
-          {hardSkills.map((skill, index) => (
-            <div key={index} className="skill-item-rating">
-              <div className="skill-header">
-                <span className="skill-name">{skill.name}</span>
-                <span className="skill-rating">{skill.rating}/10</span>
-              </div>
-              <RatingStars rating={skill.rating} />
-              <div className="skill-description">
-                {skill.description}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-      <hr className="divider" />
-
-      {/* Certifications Section */}
-      <section className="certifications" id="certifications">
+      <section className="skills" id="skills">
         <div className="container">
-          <h2>Certifications</h2>
-          <div className="certifications-grid">
-            <a
-              href="https://drive.google.com/file/d/1JHrog-9J0kqt_k1uw7NC4OMuHQHSk3-A/view?usp=sharing"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="cert-card"
-            >
-              <div className="cert-icon">🏆</div>
-              <div className="cert-content">
-                <h3>Microsoft Office Applied</h3>
-                <p className="cert-org">Trust Training Partners</p>
-                <p className="cert-year">2025</p>
-                <p className="cert-desc">Word, PowerPoint, Excel</p>
+          <h2>My Skills</h2>
+          <div className="skills-container">
+            {/* Soft Skills */}
+            <div className="skill-category soft-skills">
+              <h3>Soft Skills</h3>
+              <div className="skill-list">
+                {softSkills.map((skill, index) => (
+                  <div key={index} className="skill-item-rating">
+                    <div className="skill-header">
+                      <span className="skill-name">{skill.name}</span>
+                      <span className="skill-rating">{skill.rating}/10</span>
+                    </div>
+                    <RatingStars rating={skill.rating} />
+                    <div className="skill-description">
+                      {skill.description}
+                    </div>
+                  </div>
+                ))}
               </div>
-            </a>
+            </div>
 
-            <a
-              href="https://drive.google.com/file/d/142goCJfx5MWfi_nDnQ-rxHDZoqFgAlAf/view?usp=sharing"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="cert-card"
-            >
-              <div className="cert-icon">🌍</div>
-              <div className="cert-content">
-                <h3>Test Of English as A Foreign Language (TOEFL)</h3>
-                <p className="cert-org">Royal English</p>
-                <p className="cert-year">2025</p>
-                <p className="cert-desc">Score: 550</p>
+            {/* Software Skills */}
+            <div className="skill-category software-skills">
+              <h3>Software Skills</h3>
+              <div className="skill-list">
+                {softwareSkills.map((skill, index) => (
+                  <div key={index} className="skill-item-rating">
+                    <div className="skill-header">
+                      <span className="skill-name">{skill.name}</span>
+                      <span className="skill-rating">{skill.rating}/10</span>
+                    </div>
+                    <RatingStars rating={skill.rating} />
+                    <div className="skill-description">
+                      {skill.description}
+                    </div>
+                  </div>
+                ))}
               </div>
-            </a>
+            </div>
+
+            {/* Hard Skills */}
+            <div className="skill-category hard-skills">
+              <h3>Hard Skills</h3>
+              <div className="skill-list">
+                {hardSkills.map((skill, index) => (
+                  <div key={index} className="skill-item-rating">
+                    <div className="skill-header">
+                      <span className="skill-name">{skill.name}</span>
+                      <span className="skill-rating">{skill.rating}/10</span>
+                    </div>
+                    <RatingStars rating={skill.rating} />
+                    <div className="skill-description">
+                      {skill.description}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
+
+      <hr className="divider" />
+
+     {/* Certifications Section */}
+<section className="certifications" id="certifications">
+  <div className="container">
+    <h2>Certifications</h2>
+    <div className={`certifications-grid ${certifications.length % 2 !== 0 ? 'odd-items' : ''}`}>
+      {certifications.map((cert, index) => (
+        <a
+          key={index}
+          href={cert.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="cert-card"
+        >
+          <div className="cert-icon">{cert.icon}</div>
+          <div className="cert-content">
+            <h3>{cert.title}</h3>
+            <p className="cert-org">{cert.org}</p>
+            <p className="cert-year">{cert.year}</p>
+            <p className="cert-desc">{cert.desc}</p>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
 
       <hr className="divider" />
 

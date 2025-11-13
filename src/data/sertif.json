@@ -1,14 +1,26 @@
 [
   {
-    "id": 1,
-    "title": "Microsoft Office Applied (Word, PowerPoint, Excel)",
-    "issuer": "Trust Training Partners, 2025",
-    "image": "microsoft_office.png"
+    "icon": "🏆",
+    "title": "Microsoft Office Applied",
+    "org": "Trust Training Partners",
+    "year": "2025",
+    "desc": "Word, PowerPoint, Excel",
+    "link": "https://drive.google.com/file/d/1JHrog-9J0kqt_k1uw7NC4OMuHQHSk3-A/view?usp=sharing"
   },
   {
-    "id": 2,
-    "title": "TOEFL",
-    "issuer": "Royal English, 2025 | Score: 550",
-    "image": "toefl.png"
+    "icon": "🌍",
+    "title": "Test Of English as A Foreign Language (TOEFL)",
+    "org": "Royal English",
+    "year": "2025",
+    "desc": "Score: 550",
+    "link": "https://drive.google.com/file/d/142goCJfx5MWfi_nDnQ-rxHDZoqFgAlAf/view?usp=sharing"
+  },
+  {
+    "icon": "🤖",
+    "title": "Finalist in the 2024 Regional Level Indonesian Robot Contest (KRI)",
+    "org": "Balai Pengembangan Talenta Indonesia",
+    "year": "2024",
+    "desc": "Programming Division",
+    "link": "https://drive.google.com/file/d/14VQRvAshSGAbkWJj1O640eqeRtNxHv0o/view?usp=sharing"
   }
 ]
