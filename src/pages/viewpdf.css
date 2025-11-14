@@ -17,31 +17,31 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.8rem 1.5rem; /* Reduced padding */
+  padding: 0.8rem 1.5rem;
   background: rgba(15, 23, 42, 0.349);
   backdrop-filter: blur(12px) saturate(180%);
   -webkit-backdrop-filter: blur(12px) saturate(180%);
   border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-  z-index: 1000;
+  z-index: 50 !important;
   transition: all 0.3s ease;
-  min-height: 50px; /* Reduced height */
+  min-height: 50px;
   box-sizing: border-box;
-  gap: 1rem; /* Consistent gap */
+  gap: 1rem;
 }
 
-/* Back Button - Tighter padding */
+/* Back Button */
 .back-btn {
-  padding: 0.4rem 0.7rem; /* Reduced padding */
+  padding: 0.4rem 0.7rem;
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 6px; /* Slightly smaller radius */
+  border-radius: 6px;
   color: white;
   text-decoration: none;
   font-weight: 500;
   transition: all 0.3s ease;
   white-space: nowrap;
   flex-shrink: 0;
-  font-size: 0.85rem; /* Slightly smaller font */
+  font-size: 0.85rem;
   line-height: 1.2;
 }
 
@@ -52,21 +52,19 @@
   text-decoration: none;
 }
 
-/* Controls Center - Tighter */
+/* Controls Center */
 .controls-center {
   display: flex;
   align-items: center;
-  gap: 0.2rem; /* Reduced gap */
+  gap: 0.2rem;
   background: rgba(255, 255, 255, 0.05);
-  padding: 0.3rem; /* Reduced padding */
-  border-radius: 8px; /* Smaller radius */
+  padding: 0.3rem;
+  border-radius: 8px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   flex-shrink: 0;
 }
 
-/* Hapus bagian .ctrl.reset-zoom yang lama dan ganti dengan ini: */
-
-/* Style untuk semua control buttons dengan SVG */
+/* Control Buttons dengan SVG */
 .ctrl {
   width: 28px;
   height: 28px;
@@ -82,42 +80,7 @@
   flex-shrink: 0;
   padding: 0;
 }
-/* Download Button - Should match Back button style */
-.download-btn {
-  padding: 0.4rem 0.7rem; /* Same as back-btn */
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 6px; /* Same as back-btn */
-  cursor: pointer;
-  transition: all 0.3s ease;
-  color: white;
-  font-weight: 500;
-  white-space: nowrap;
-  flex-shrink: 0;
-  font-size: 0.85rem; /* Same as back-btn */
-  line-height: 1.2;
-  text-decoration: none; /* Add this to match */
-  display: inline-flex; /* Add this for better alignment */
-  align-items: center; /* Add this for better alignment */
-  justify-content: center; /* Add this for better alignment */
-  gap: 0.3rem; /* Add spacing between icon and text */
-}
 
-.download-btn:hover:not(:disabled) {
-  background: rgba(255, 255, 255, 0.2);
-  border-color: rgba(255, 255, 255, 0.3);
-  color: white;
-  text-decoration: none; /* Consistent with back-btn */
-}
-
-.download-btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-.controls-right {
-  flex-shrink: 0;
-}
 /* Style untuk SVG di dalam buttons */
 .ctrl svg {
   width: 16px;
@@ -152,98 +115,60 @@
   transform: none !important;
 }
 
-/* Responsive adjustments untuk SVG buttons */
-@media (max-width: 1024px) {
-  .ctrl {
-    width: 26px;
-    height: 26px;
-  }
-  
-  .ctrl svg {
-    width: 15px;
-    height: 15px;
-  }
-  
-  .ctrl.reset-zoom svg {
-    width: 17px;
-    height: 17px;
-  }
+.ctrl-label {
+  padding: 0 0.4rem;
+  font-weight: 500;
+  color: white;
+  min-width: 45px;
+  text-align: center;
+  flex-shrink: 0;
+  font-size: 0.85rem;
 }
 
-@media (max-width: 768px) {
-  .ctrl {
-    width: 24px;
-    height: 24px;
-  }
-  
-  .ctrl svg {
-    width: 14px;
-    height: 14px;
-  }
-  
-  .ctrl.reset-zoom svg {
-    width: 16px;
-    height: 16px;
-  }
+/* Download Button */
+.download-btn {
+  padding: 0.4rem 0.7rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: white;
+  font-weight: 500;
+  white-space: nowrap;
+  flex-shrink: 0;
+  font-size: 0.85rem;
+  line-height: 1.2;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
 }
 
-@media (max-width: 480px) {
-  .ctrl {
-    width: 22px;
-    height: 22px;
-  }
-  
-  .ctrl svg {
-    width: 13px;
-    height: 13px;
-  }
-  
-  .ctrl.reset-zoom svg {
-    width: 15px;
-    height: 15px;
-  }
+.download-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: white;
+  text-decoration: none;
 }
 
-@media (max-width: 360px) {
-  .ctrl {
-    width: 20px;
-    height: 20px;
-  }
-  
-  .ctrl svg {
-    width: 12px;
-    height: 12px;
-  }
-  
-  .ctrl.reset-zoom svg {
-    width: 14px;
-    height: 14px;
-  }
+.download-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
-@media (max-width: 320px) {
-  .ctrl {
-    width: 18px;
-    height: 18px;
-  }
-  
-  .ctrl svg {
-    width: 11px;
-    height: 11px;
-  }
-  
-  .ctrl.reset-zoom svg {
-    width: 13px;
-    height: 13px;
-  }
+.controls-right {
+  flex-shrink: 0;
 }
+
 /* CV Image Container */
 .cv-viewer-container {
-  padding: 1.5rem; /* Reduced padding */
+  padding: 1.5rem;
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  min-height: calc(100vh - 100px); /* Adjusted for smaller controls */
+  min-height: calc(100vh - 100px);
   touch-action: none;
   user-select: none;
   -webkit-user-select: none;
@@ -252,9 +177,9 @@
 }
 
 .cv-image-wrapper {
-  border-radius: 8px; /* Smaller radius */
+  border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25); /* Slightly smaller shadow */
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
   background: white;
   max-width: 100%;
   display: inline-block;
@@ -294,41 +219,50 @@
 
 .zoom-instructions {
   text-align: center;
-  padding: 0.8rem; /* Reduced padding */
+  padding: 0.8rem;
   color: white;
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
-  margin-top: 1.5rem; /* Reduced margin */
+  margin-top: 1.5rem;
   border-top: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .zoom-instructions p {
   margin: 0;
-  font-size: 0.85rem; /* Slightly smaller */
+  font-size: 0.85rem;
   opacity: 0.9;
 }
 
 /* Responsive Design - Tablet */
 @media (max-width: 1024px) {
   .cv-controls {
-    padding: 0.6rem 1rem; /* Tighter padding */
-    min-height: 45px; /* Smaller height */
+    padding: 0.6rem 1rem;
+    min-height: 45px;
   }
   
   .back-btn, .download-btn {
-    padding: 0.35rem 0.6rem; /* Tighter */
+    padding: 0.35rem 0.6rem;
     font-size: 0.8rem;
   }
   
   .controls-center {
-    padding: 0.25rem; /* Tighter */
+    padding: 0.25rem;
     gap: 0.15rem;
   }
   
   .ctrl {
     width: 26px;
     height: 26px;
-    font-size: 0.9rem;
+  }
+  
+  .ctrl svg {
+    width: 15px;
+    height: 15px;
+  }
+  
+  .ctrl.reset-zoom svg {
+    width: 17px;
+    height: 17px;
   }
   
   .ctrl-label {
@@ -341,14 +275,14 @@
 /* Responsive Design - Mobile */
 @media (max-width: 768px) {
   .cv-controls {
-    padding: 0.5rem 0.8rem; /* Even tighter */
+    padding: 0.5rem 0.8rem;
     gap: 0.4rem;
     min-height: 42px;
   }
   
   .back-btn, .download-btn {
     font-size: 0.75rem;
-    padding: 0.3rem 0.5rem; /* Tighter */
+    padding: 0.3rem 0.5rem;
   }
   
   .controls-center {
@@ -359,7 +293,16 @@
   .ctrl {
     width: 24px;
     height: 24px;
-    font-size: 0.85rem;
+  }
+  
+  .ctrl svg {
+    width: 14px;
+    height: 14px;
+  }
+  
+  .ctrl.reset-zoom svg {
+    width: 16px;
+    height: 16px;
   }
   
   .ctrl-label {
@@ -380,13 +323,13 @@
   
   .back-btn {
     font-size: 0.7rem;
-    padding: 0.25rem 0.4rem; /* Very tight */
+    padding: 0.25rem 0.4rem;
     margin-right: auto;
   }
   
   .download-btn {
     font-size: 0.7rem;
-    padding: 0.25rem 0.4rem; /* Very tight */
+    padding: 0.25rem 0.4rem;
     margin-left: auto;
   }
   
@@ -394,15 +337,24 @@
     gap: 0.1rem;
     padding: 0.2rem;
     margin: 0 auto;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+    position: static;
+    transform: none;
+    left: auto;
   }
   
   .ctrl {
     width: 22px;
     height: 22px;
-    font-size: 0.8rem;
+  }
+  
+  .ctrl svg {
+    width: 13px;
+    height: 13px;
+  }
+  
+  .ctrl.reset-zoom svg {
+    width: 15px;
+    height: 15px;
   }
   
   .ctrl-label {
@@ -422,14 +374,14 @@
   
   .back-btn {
     font-size: 0.65rem;
-    padding: 0.2rem 0.3rem; /* Extremely tight */
+    padding: 0.2rem 0.3rem;
     min-width: 50px;
     margin-right: auto;
   }
   
   .download-btn {
     font-size: 0.65rem;
-    padding: 0.2rem 0.3rem; /* Extremely tight */
+    padding: 0.2rem 0.3rem;
     min-width: 60px;
     margin-left: auto;
   }
@@ -437,12 +389,23 @@
   .controls-center {
     gap: 0.08rem;
     padding: 0.15rem;
+    margin: 0 auto;
+    position: static;
   }
   
   .ctrl {
     width: 20px;
     height: 20px;
-    font-size: 0.75rem;
+  }
+  
+  .ctrl svg {
+    width: 12px;
+    height: 12px;
+  }
+  
+  .ctrl.reset-zoom svg {
+    width: 14px;
+    height: 14px;
   }
   
   .ctrl-label {
@@ -462,14 +425,14 @@
   
   .back-btn {
     font-size: 0.6rem;
-    padding: 0.18rem 0.25rem; /* Super tight */
+    padding: 0.18rem 0.25rem;
     min-width: 45px;
     margin-right: auto;
   }
   
   .download-btn {
     font-size: 0.6rem;
-    padding: 0.18rem 0.25rem; /* Super tight */
+    padding: 0.18rem 0.25rem;
     min-width: 55px;
     margin-left: auto;
   }
@@ -477,17 +440,51 @@
   .controls-center {
     gap: 0.06rem;
     padding: 0.12rem;
+    margin: 0 auto;
+    position: static;
   }
   
   .ctrl {
     width: 18px;
     height: 18px;
-    font-size: 0.7rem;
+  }
+  
+  .ctrl svg {
+    width: 11px;
+    height: 11px;
+  }
+  
+  .ctrl.reset-zoom svg {
+    width: 13px;
+    height: 13px;
   }
   
   .ctrl-label {
     padding: 0 0.08rem;
     min-width: 25px;
     font-size: 0.6rem;
+  }
+}
+
+/* Fallback: horizontal scroll untuk layar sangat sempit */
+@media (max-width: 300px) {
+  .cv-controls {
+    overflow-x: auto;
+    overflow-y: hidden;
+    justify-content: flex-start;
+    scrollbar-width: thin;
+  }
+  
+  .cv-controls::-webkit-scrollbar {
+    height: 2px;
+  }
+  
+  .cv-controls::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 1px;
+  }
+  
+  .back-btn, .download-btn, .controls-center {
+    flex-shrink: 0;
   }
 }
