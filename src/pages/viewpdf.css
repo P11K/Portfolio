@@ -1,301 +1,493 @@
-/* viewpdf.css */
-
-/* Reset dan Base Styles */
+/* View PDF Styles */
 .cv-page {
   min-height: 100vh;
-  background: #ffffff;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  padding: 0;
-  margin: 0;
+  background: linear-gradient(135deg, #ffffff 0%, rgba(15, 23, 42, 0.7) 80%);
+  border-radius: 12px;
+  position: relative;
+  margin: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  /* overflow: hidden; */
 }
 
-/* Controls Bar */
+/* Glass Effect Controls */
 .cv-controls {
+  position: sticky;
+  top: 0;
+  border-radius: 12px 12px 0 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
-  background: #ffffff;
-  border-bottom: 1px solid #e5e7eb;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  gap: 1rem;
+  padding: 0.8rem 1.5rem; /* Reduced padding */
+  background: rgba(15, 23, 42, 0.349);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  z-index: 1000;
+  transition: all 0.3s ease;
+  min-height: 50px; /* Reduced height */
+  box-sizing: border-box;
+  gap: 1rem; /* Consistent gap */
 }
 
-/* Back Button */
+/* Back Button - Tighter padding */
 .back-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.6rem 1.2rem;
-  background: #f8f9fa;
-  color: #374151;
+  padding: 0.4rem 0.7rem; /* Reduced padding */
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px; /* Slightly smaller radius */
+  color: white;
   text-decoration: none;
-  border-radius: 8px;
   font-weight: 500;
-  font-size: 0.9rem;
-  transition: all 0.2s ease;
-  border: 1px solid #e5e7eb;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
+  font-size: 0.85rem; /* Slightly smaller font */
+  line-height: 1.2;
 }
 
 .back-btn:hover {
-  background: #f3f4f6;
-  border-color: #d1d5db;
-  transform: translateY(-1px);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: white;
+  text-decoration: none;
 }
 
-/* Controls Center Section */
+/* Controls Center - Tighter */
 .controls-center {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  background: #f8f9fa;
-  padding: 0.4rem 0.8rem;
-  border-radius: 8px;
-  border: 1px solid #e5e7eb;
+  gap: 0.2rem; /* Reduced gap */
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.3rem; /* Reduced padding */
+  border-radius: 8px; /* Smaller radius */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  flex-shrink: 0;
 }
 
-/* Control Buttons */
+/* Hapus bagian .ctrl.reset-zoom yang lama dan ganti dengan ini: */
+
+/* Style untuk semua control buttons dengan SVG */
 .ctrl {
-  width: 36px;
-  height: 36px;
-  border: 1px solid #d1d5db;
-  background: #ffffff;
-  color: #374151;
-  border-radius: 6px;
-  font-size: 1rem;
-  font-weight: 500;
+  width: 28px;
+  height: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.ctrl:hover:not(:disabled) {
-  background: #f3f4f6;
-  border-color: #9ca3af;
-  transform: translateY(-1px);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-}
-
-.ctrl:active:not(:disabled) {
-  transform: translateY(0);
-}
-
-.ctrl:disabled {
-  background: #f9fafb;
-  color: #9ca3af;
-  cursor: not-allowed;
-  border-color: #e5e7eb;
-}
-
-.zoom-in, .zoom-out {
-  font-weight: 600;
-}
-
-.reset-zoom {
-  font-size: 0.9rem;
-}
-
-/* Scale Label */
-.ctrl-label {
-  font-weight: 500;
-  color: #374151;
-  font-size: 0.85rem;
-  min-width: 45px;
-  text-align: center;
-  background: #ffffff;
-  padding: 0.4rem 0.6rem;
-  border-radius: 6px;
-  border: 1px solid #e5e7eb;
-}
-
-/* Download Button */
-.download-btn {
-  padding: 0.6rem 1.2rem;
-  background: #10b981;
   color: white;
-  border: none;
-  border-radius: 8px;
-  font-weight: 500;
-  font-size: 0.9rem;
+  flex-shrink: 0;
+  padding: 0;
+}
+/* Download Button - Should match Back button style */
+.download-btn {
+  padding: 0.4rem 0.7rem; /* Same as back-btn */
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px; /* Same as back-btn */
   cursor: pointer;
-  transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
+  transition: all 0.3s ease;
+  color: white;
+  font-weight: 500;
+  white-space: nowrap;
+  flex-shrink: 0;
+  font-size: 0.85rem; /* Same as back-btn */
+  line-height: 1.2;
+  text-decoration: none; /* Add this to match */
+  display: inline-flex; /* Add this for better alignment */
+  align-items: center; /* Add this for better alignment */
+  justify-content: center; /* Add this for better alignment */
+  gap: 0.3rem; /* Add spacing between icon and text */
 }
 
 .download-btn:hover:not(:disabled) {
-  background: #059669;
-  transform: translateY(-1px);
-  box-shadow: 0 2px 4px rgba(16, 185, 129, 0.2);
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: white;
+  text-decoration: none; /* Consistent with back-btn */
 }
 
 .download-btn:disabled {
-  background: #9ca3af;
+  opacity: 0.6;
   cursor: not-allowed;
-  transform: none;
 }
 
-/* CV Viewer Container */
-.cv-viewer-container {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  padding: 2rem;
-  min-height: calc(100vh - 140px);
-  background: #f8f9fa;
-  overflow: auto;
+.controls-right {
+  flex-shrink: 0;
+}
+/* Style untuk SVG di dalam buttons */
+.ctrl svg {
+  width: 16px;
+  height: 16px;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
 }
 
-.cv-image-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  width: 100%;
-  max-width: 900px;
+/* Reset zoom button butuh SVG sedikit lebih besar */
+.ctrl.reset-zoom svg {
+  width: 18px;
+  height: 18px;
 }
 
-/* CV Image Styling */
-.cv-image {
-  width: 100%;
-  max-width: 900px;
-  height: auto;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease;
-  background: white;
+/* Hover effects untuk buttons dengan SVG */
+.ctrl:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.3);
 }
 
-.cv-image:hover {
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+.ctrl:hover:not(:disabled) svg {
+  transform: scale(1.1);
 }
 
-/* Zoom Instructions */
-.zoom-instructions {
-  text-align: center;
-  padding: 1rem 2rem;
-  background: #ffffff;
-  border-top: 1px solid #e5e7eb;
+/* Disabled state */
+.ctrl:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
 }
 
-.zoom-instructions p {
-  margin: 0;
-  color: #6b7280;
-  font-size: 0.85rem;
-  font-weight: 400;
+.ctrl:disabled svg {
+  transform: none !important;
 }
 
-/* Responsive Design */
+/* Responsive adjustments untuk SVG buttons */
+@media (max-width: 1024px) {
+  .ctrl {
+    width: 26px;
+    height: 26px;
+  }
+  
+  .ctrl svg {
+    width: 15px;
+    height: 15px;
+  }
+  
+  .ctrl.reset-zoom svg {
+    width: 17px;
+    height: 17px;
+  }
+}
+
 @media (max-width: 768px) {
-  .cv-controls {
-    padding: 0.8rem 1rem;
-    flex-direction: column;
-    gap: 0.8rem;
+  .ctrl {
+    width: 24px;
+    height: 24px;
   }
   
-  .controls-center {
-    order: 2;
-    width: 100%;
-    justify-content: center;
+  .ctrl svg {
+    width: 14px;
+    height: 14px;
   }
   
-  .controls-right {
-    order: 3;
-    width: 100%;
-    justify-content: center;
-  }
-  
-  .back-btn {
-    order: 1;
-    width: 100%;
-    justify-content: center;
-  }
-  
-  .cv-viewer-container {
-    padding: 1rem;
+  .ctrl.reset-zoom svg {
+    width: 16px;
+    height: 16px;
   }
 }
 
 @media (max-width: 480px) {
-  .cv-controls {
-    padding: 0.6rem;
+  .ctrl {
+    width: 22px;
+    height: 22px;
   }
   
-  .cv-viewer-container {
-    padding: 0.5rem;
-    min-height: calc(100vh - 120px);
+  .ctrl svg {
+    width: 13px;
+    height: 13px;
+  }
+  
+  .ctrl.reset-zoom svg {
+    width: 15px;
+    height: 15px;
+  }
+}
+
+@media (max-width: 360px) {
+  .ctrl {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .ctrl svg {
+    width: 12px;
+    height: 12px;
+  }
+  
+  .ctrl.reset-zoom svg {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+@media (max-width: 320px) {
+  .ctrl {
+    width: 18px;
+    height: 18px;
+  }
+  
+  .ctrl svg {
+    width: 11px;
+    height: 11px;
+  }
+  
+  .ctrl.reset-zoom svg {
+    width: 13px;
+    height: 13px;
+  }
+}
+/* CV Image Container */
+.cv-viewer-container {
+  padding: 1.5rem; /* Reduced padding */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: calc(100vh - 100px); /* Adjusted for smaller controls */
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.cv-image-wrapper {
+  border-radius: 8px; /* Smaller radius */
+  overflow: hidden;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25); /* Slightly smaller shadow */
+  background: white;
+  max-width: 100%;
+  display: inline-block;
+  cursor: move;
+}
+
+.cv-image {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  transition: transform 0.15s ease-out;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* State ketika zoom active */
+.cv-image.zoom-active {
+  cursor: grab;
+}
+
+.cv-image.zoom-active:active {
+  cursor: grabbing;
+}
+
+/* Improved cursor feedback */
+.cv-viewer-container:has(.cv-image.zoom-active) {
+  cursor: grab;
+}
+
+.cv-viewer-container:has(.cv-image.zoom-active:active) {
+  cursor: grabbing;
+}
+
+.zoom-instructions {
+  text-align: center;
+  padding: 0.8rem; /* Reduced padding */
+  color: white;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  margin-top: 1.5rem; /* Reduced margin */
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.zoom-instructions p {
+  margin: 0;
+  font-size: 0.85rem; /* Slightly smaller */
+  opacity: 0.9;
+}
+
+/* Responsive Design - Tablet */
+@media (max-width: 1024px) {
+  .cv-controls {
+    padding: 0.6rem 1rem; /* Tighter padding */
+    min-height: 45px; /* Smaller height */
+  }
+  
+  .back-btn, .download-btn {
+    padding: 0.35rem 0.6rem; /* Tighter */
+    font-size: 0.8rem;
   }
   
   .controls-center {
-    gap: 0.3rem;
-    padding: 0.3rem 0.6rem;
+    padding: 0.25rem; /* Tighter */
+    gap: 0.15rem;
   }
   
   .ctrl {
-    width: 32px;
-    height: 32px;
+    width: 26px;
+    height: 26px;
     font-size: 0.9rem;
   }
   
   .ctrl-label {
-    font-size: 0.8rem;
+    padding: 0 0.3rem;
     min-width: 40px;
-    padding: 0.3rem 0.5rem;
+    font-size: 0.8rem;
+  }
+}
+
+/* Responsive Design - Mobile */
+@media (max-width: 768px) {
+  .cv-controls {
+    padding: 0.5rem 0.8rem; /* Even tighter */
+    gap: 0.4rem;
+    min-height: 42px;
   }
   
-  .download-btn, .back-btn {
-    padding: 0.5rem 1rem;
+  .back-btn, .download-btn {
+    font-size: 0.75rem;
+    padding: 0.3rem 0.5rem; /* Tighter */
+  }
+  
+  .controls-center {
+    gap: 0.15rem;
+    padding: 0.25rem;
+  }
+  
+  .ctrl {
+    width: 24px;
+    height: 24px;
     font-size: 0.85rem;
   }
   
-  .zoom-instructions {
-    padding: 0.8rem 1rem;
+  .ctrl-label {
+    padding: 0 0.25rem;
+    min-width: 35px;
+    font-size: 0.75rem;
+  }
+}
+
+/* Untuk screen yang sangat kecil */
+@media (max-width: 480px) {
+  .cv-controls {
+    padding: 0.4rem 0.5rem;
+    gap: 0.2rem;
+    min-height: 38px;
+    justify-content: space-between;
   }
   
-  .zoom-instructions p {
+  .back-btn {
+    font-size: 0.7rem;
+    padding: 0.25rem 0.4rem; /* Very tight */
+    margin-right: auto;
+  }
+  
+  .download-btn {
+    font-size: 0.7rem;
+    padding: 0.25rem 0.4rem; /* Very tight */
+    margin-left: auto;
+  }
+  
+  .controls-center {
+    gap: 0.1rem;
+    padding: 0.2rem;
+    margin: 0 auto;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .ctrl {
+    width: 22px;
+    height: 22px;
     font-size: 0.8rem;
   }
+  
+  .ctrl-label {
+    padding: 0 0.15rem;
+    min-width: 30px;
+    font-size: 0.7rem;
+  }
 }
 
-/* Focus States untuk Accessibility */
-.ctrl:focus,
-.back-btn:focus,
-.download-btn:focus {
-  outline: 2px solid #3b82f6;
-  outline-offset: 1px;
+/* Untuk screen yang extremely kecil */
+@media (max-width: 360px) {
+  .cv-controls {
+    padding: 0.3rem 0.4rem;
+    gap: 0.15rem;
+    min-height: 35px;
+  }
+  
+  .back-btn {
+    font-size: 0.65rem;
+    padding: 0.2rem 0.3rem; /* Extremely tight */
+    min-width: 50px;
+    margin-right: auto;
+  }
+  
+  .download-btn {
+    font-size: 0.65rem;
+    padding: 0.2rem 0.3rem; /* Extremely tight */
+    min-width: 60px;
+    margin-left: auto;
+  }
+  
+  .controls-center {
+    gap: 0.08rem;
+    padding: 0.15rem;
+  }
+  
+  .ctrl {
+    width: 20px;
+    height: 20px;
+    font-size: 0.75rem;
+  }
+  
+  .ctrl-label {
+    padding: 0 0.1rem;
+    min-width: 28px;
+    font-size: 0.65rem;
+  }
 }
 
-/* Smooth Scrolling */
-.cv-viewer-container {
-  scroll-behavior: smooth;
-}
-
-/* Print Styles */
-@media print {
-  .cv-controls,
-  .zoom-instructions {
-    display: none;
+/* Solusi untuk screen super kecil */
+@media (max-width: 320px) {
+  .cv-controls {
+    padding: 0.25rem 0.3rem;
+    gap: 0.1rem;
+    min-height: 32px;
   }
   
-  .cv-page {
-    background: white;
+  .back-btn {
+    font-size: 0.6rem;
+    padding: 0.18rem 0.25rem; /* Super tight */
+    min-width: 45px;
+    margin-right: auto;
   }
   
-  .cv-viewer-container {
-    padding: 0;
-    min-height: auto;
-    background: white;
+  .download-btn {
+    font-size: 0.6rem;
+    padding: 0.18rem 0.25rem; /* Super tight */
+    min-width: 55px;
+    margin-left: auto;
   }
   
-  .cv-image {
-    box-shadow: none;
-    border-radius: 0;
-    max-width: none;
+  .controls-center {
+    gap: 0.06rem;
+    padding: 0.12rem;
+  }
+  
+  .ctrl {
+    width: 18px;
+    height: 18px;
+    font-size: 0.7rem;
+  }
+  
+  .ctrl-label {
+    padding: 0 0.08rem;
+    min-width: 25px;
+    font-size: 0.6rem;
   }
 }
